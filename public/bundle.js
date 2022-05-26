@@ -392,9 +392,9 @@ var app = (function () {
     			button1 = element("button");
     			button1.textContent = "ChangeName";
     			attr_dev(h1, "class", "svelte-1ucbz36");
-    			add_location(h1, file, 18, 0, 283);
-    			add_location(button0, file, 19, 0, 332);
-    			add_location(button1, file, 20, 0, 384);
+    			add_location(h1, file, 22, 0, 392);
+    			add_location(button0, file, 23, 0, 441);
+    			add_location(button1, file, 24, 0, 493);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -463,7 +463,7 @@ var app = (function () {
     		$$invalidate(4, name = "Surapong Kawkangploo");
     	}
 
-    	console.log("with out $:", name);
+    	console.log("with out $:", name); // run on load first;
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -495,6 +495,13 @@ var app = (function () {
 
     		if ($$self.$$.dirty & /*name*/ 16) {
     			console.log("$:", name);
+    		}
+
+    		if ($$self.$$.dirty & /*name*/ 16) {
+    			if (name === "Surapong Kawkangploo") {
+    				// dependency {name}
+    				$$invalidate(0, age = 29);
+    			}
     		}
     	};
 
