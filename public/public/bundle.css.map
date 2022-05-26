@@ -5,8 +5,8 @@
     "../App.svelte"
   ],
   "sourcesContent": [
-    "<script>\n  let name = \"Surapong\";\n  let age = 30;\n\n  function incrementAge() {\n    age += 1;\n  }\n\n  function changeName() {\n    name = \"Surapong Kawkangploo\";\n  }\n\n  $: uppercaseName = name.toUpperCase();\n  $: console.log(\"$:\", name);\n\n  console.log(\"with out $:\", name);\n</script>\n\n<h1>Hello {uppercaseName}, my age is {age}!</h1>\n<button on:click={incrementAge}>Change Age</button>\n<button on:click={changeName}>ChangeName</button>\n\n<style>\n  h1 {\n    color: purple;\n  }\n</style>\n"
+    "<script>\n  let name = \"Surapong\";\n  let age = 30;\n\n  function incrementAge() {\n    age += 1;\n  }\n\n  function changeName() {\n    name = \"Surapong Kawkangploo\";\n  }\n\n  $: uppercaseName = name.toUpperCase();\n  $: console.log(\"$:\", name);\n  console.log(\"with out $:\", name); // run on load first;\n\n  $: if (name === \"Surapong Kawkangploo\") {\n    // dependency {name}\n    age = 29;\n  }\n</script>\n\n<h1>Hello {uppercaseName}, my age is {age}!</h1>\n<button on:click={incrementAge}>Change Age</button>\n<button on:click={changeName}>ChangeName</button>\n\n<style>\n  h1 {\n    color: purple;\n  }\n</style>\n"
   ],
   "names": [],
-  "mappings": "AAuBE,EAAE,eAAC,CAAC,AACF,KAAK,CAAE,MAAM,AACf,CAAC"
+  "mappings": "AA2BE,EAAE,eAAC,CAAC,AACF,KAAK,CAAE,MAAM,AACf,CAAC"
 }

@@ -12,8 +12,12 @@
 
   $: uppercaseName = name.toUpperCase();
   $: console.log("$:", name);
+  console.log("with out $:", name); // run on load first;
 
-  console.log("with out $:", name);
+  $: if (name === "Surapong Kawkangploo") {
+    // dependency {name}
+    age = 29;
+  }
 </script>
 
 <h1>Hello {uppercaseName}, my age is {age}!</h1>
