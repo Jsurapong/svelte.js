@@ -10,6 +10,10 @@
     name = "Surapong Kawkangploo";
   }
 
+  function nameInput(event) {
+    name = event.target.value;
+  }
+
   $: uppercaseName = name.toUpperCase();
   $: console.log("$:", name);
   console.log("with out $:", name); // run on load first;
@@ -23,6 +27,8 @@
 <h1>Hello {uppercaseName}, my age is {age}!</h1>
 <button on:click={incrementAge}>Change Age</button>
 <button on:click={changeName}>ChangeName</button>
+
+<input on:input={nameInput} value={name} />
 
 <style>
   h1 {
