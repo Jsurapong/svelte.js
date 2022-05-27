@@ -1,61 +1,51 @@
 <script>
   import ContactCard from "./ContactCard.svelte";
 
-  let name = "Surapong";
+  let name = "Max";
   let title = "";
-  let description = "";
   let image = "";
-  let age = 30;
+  let description = "";
 
-  function incrementAge() {
-    age += 1;
-  }
+  let done = false;
 
-  function changeName() {
-    name = "Surapong Kawkangploo";
-  }
-
-  function nameInput(event) {
-    name = event.target.value;
-  }
-
-  $: uppercaseName = name.toUpperCase();
-  $: console.log("$:", name);
-  console.log("with out $:", name); // run on load first;
-
-  $: if (name === "Surapong Kawkangploo") {
-    // dependency {name}
-    age = 29;
+  function addContact() {
+    done = true;
   }
 </script>
 
-<h1>Hello {uppercaseName}, my age is {age}!</h1>
-<button on:click={incrementAge}>Change Age</button>
-<button on:click={changeName}>ChangeName</button>
-<!-- <input on:input={nameInput} value={name} /> -->
-
-<div>
-  <label>
-    Name
-    <input bind:value={name} />
-  </label>
-  <label>
-    Job Title
-    <input bind:value={title} />
-  </label>
-  <label
-    >Description
-    <textarea rows="3" bind:value={description} />
-  </label>
-  <label>
-    Image
-    <input bind:value={image} />
-  </label>
+<div id="form">
+  <div class="form-control">
+    <label for="userName">User Name</label>
+    <input type="text" bind:value={name} id="userName" />
+  </div>
+  <div class="form-control">
+    <label for="jobTitle">Job Title</label>
+    <input type="text" bind:value={title} id="jobTitle" />
+  </div>
+  <div class="form-control">
+    <label for="image">Image URL</label>
+    <input type="text" bind:value={image} id="image" />
+  </div>
+  <div class="form-control">
+    <label for="desc">Description</label>
+    <textarea rows="3" bind:value={description} id="desc" />
+  </div>
 </div>
-<ContactCard userName={name} jobTitle={title} {description} userImage={image} />
+
+<button on:click={addContact}>Add contact Card</button>
+
+{#if done}
+  <ContactCard
+    userName={name}
+    jobTitle={title}
+    {description}
+    userImage={image}
+  />
+{/if}
 
 <style>
-  h1 {
-    color: purple;
+  #form {
+    width: 30rem;
+    max-width: 100%;
   }
 </style>
