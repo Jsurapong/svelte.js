@@ -28,7 +28,8 @@
 <button on:click={incrementAge}>Change Age</button>
 <button on:click={changeName}>ChangeName</button>
 
-<input on:input={nameInput} value={name} />
+<!-- <input on:input={nameInput} value={name} /> -->
+<input bind:value={name} />
 
 <style>
   h1 {

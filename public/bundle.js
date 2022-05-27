@@ -58,6 +58,9 @@ var app = (function () {
     function children(element) {
         return Array.from(element.childNodes);
     }
+    function set_input_value(input, value) {
+        input.value = value == null ? '' : value;
+    }
     function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
         const e = document.createEvent('CustomEvent');
         e.initCustomEvent(type, bubbles, cancelable, detail);
@@ -324,10 +327,6 @@ var app = (function () {
         else
             dispatch_dev('SvelteDOMSetAttribute', { node, attribute, value });
     }
-    function prop_dev(node, property, value) {
-        node[property] = value;
-        dispatch_dev('SvelteDOMSetProperty', { node, property, value });
-    }
     function set_data_dev(text, data) {
         data = '' + data;
         if (text.wholeText === data)
@@ -403,8 +402,7 @@ var app = (function () {
     			add_location(h1, file, 26, 0, 458);
     			add_location(button0, file, 27, 0, 507);
     			add_location(button1, file, 28, 0, 559);
-    			input.value = /*name*/ ctx[0];
-    			add_location(input, file, 30, 0, 610);
+    			add_location(input, file, 31, 0, 663);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -422,12 +420,13 @@ var app = (function () {
     			insert_dev(target, button1, anchor);
     			insert_dev(target, t9, anchor);
     			insert_dev(target, input, anchor);
+    			set_input_value(input, /*name*/ ctx[0]);
 
     			if (!mounted) {
     				dispose = [
     					listen_dev(button0, "click", /*incrementAge*/ ctx[3], false, false, false),
     					listen_dev(button1, "click", /*changeName*/ ctx[4], false, false, false),
-    					listen_dev(input, "input", /*nameInput*/ ctx[5], false, false, false)
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[5])
     				];
 
     				mounted = true;
@@ -438,7 +437,7 @@ var app = (function () {
     			if (dirty & /*age*/ 2) set_data_dev(t3, /*age*/ ctx[1]);
 
     			if (dirty & /*name*/ 1 && input.value !== /*name*/ ctx[0]) {
-    				prop_dev(input, "value", /*name*/ ctx[0]);
+    				set_input_value(input, /*name*/ ctx[0]);
     			}
     		},
     		i: noop,
@@ -493,6 +492,11 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
+    	function input_input_handler() {
+    		name = this.value;
+    		$$invalidate(0, name);
+    	}
+
     	$$self.$capture_state = () => ({
     		name,
     		age,
@@ -529,7 +533,7 @@ var app = (function () {
     		}
     	};
 
-    	return [name, age, uppercaseName, incrementAge, changeName, nameInput];
+    	return [name, age, uppercaseName, incrementAge, changeName, input_input_handler];
     }
 
     class App extends SvelteComponentDev {
