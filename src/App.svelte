@@ -42,7 +42,7 @@
   }
 </script>
 
-<div id="form">
+<form id="form">
   <div class="form-control">
     <label for="userName">User Name</label>
     <input type="text" bind:value={name} id="userName" />
@@ -59,9 +59,10 @@
     <label for="desc">Description</label>
     <textarea rows="3" bind:value={description} id="desc" />
   </div>
-</div>
-
-<button on:click={addContact}>Add contact Card</button>
+  <button on:click|preventDefault={addContact}>Add contact Card</button>
+  <br />
+  <br />
+</form>
 
 <button on:click={delFirst}>Del first</button>
 <button on:click={delLast}>Del last</button>
