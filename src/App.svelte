@@ -64,8 +64,8 @@
   <br />
 </form>
 
-<button on:click={delFirst}>Del first</button>
-<button on:click={delLast}>Del last</button>
+<button on:click={() => delFirst()}>Del first</button>
+<button on:click={() => delLast()}>Del last</button>
 
 {#if formState === "invalid"}
   <p>invalid input</p>
