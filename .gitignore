@@ -6,3 +6,7 @@
 .env.build
 
 .vercel
+/public/bundle.css
+/public/bundle.css.map
+/public/bundle.js
+/public/bundle.js.map
