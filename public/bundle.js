@@ -402,6 +402,7 @@ var app = (function () {
     	let t0;
     	let div1;
     	let h1;
+    	let t1;
     	let t2;
     	let h2;
     	let t4;
@@ -417,7 +418,7 @@ var app = (function () {
     			t0 = space();
     			div1 = element("div");
     			h1 = element("h1");
-    			h1.textContent = "User Name";
+    			t1 = text(/*userName*/ ctx[0]);
     			t2 = space();
     			h2 = element("h2");
     			h2.textContent = "Job Title";
@@ -428,22 +429,22 @@ var app = (function () {
     			if (!src_url_equal(img.src, img_src_value = "")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "");
     			attr_dev(img, "class", "svelte-10kp4ar");
-    			add_location(img, file$1, 3, 6, 68);
+    			add_location(img, file$1, 7, 6, 111);
     			attr_dev(div0, "class", "thumb svelte-10kp4ar");
-    			add_location(div0, file$1, 2, 4, 42);
+    			add_location(div0, file$1, 6, 4, 85);
     			attr_dev(h1, "class", "svelte-10kp4ar");
-    			add_location(h1, file$1, 6, 6, 135);
+    			add_location(h1, file$1, 10, 6, 178);
     			attr_dev(h2, "class", "svelte-10kp4ar");
-    			add_location(h2, file$1, 7, 6, 160);
+    			add_location(h2, file$1, 11, 6, 204);
     			attr_dev(div1, "class", "user-data svelte-10kp4ar");
-    			add_location(div1, file$1, 5, 4, 105);
+    			add_location(div1, file$1, 9, 4, 148);
     			attr_dev(header, "class", "svelte-10kp4ar");
-    			add_location(header, file$1, 1, 2, 29);
-    			add_location(p, file$1, 11, 4, 234);
+    			add_location(header, file$1, 5, 2, 72);
+    			add_location(p, file$1, 15, 4, 278);
     			attr_dev(div2, "class", "description svelte-10kp4ar");
-    			add_location(div2, file$1, 10, 2, 204);
+    			add_location(div2, file$1, 14, 2, 248);
     			attr_dev(div3, "class", "contact-card svelte-10kp4ar");
-    			add_location(div3, file$1, 0, 0, 0);
+    			add_location(div3, file$1, 4, 0, 43);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -456,13 +457,16 @@ var app = (function () {
     			append_dev(header, t0);
     			append_dev(header, div1);
     			append_dev(div1, h1);
+    			append_dev(h1, t1);
     			append_dev(div1, t2);
     			append_dev(div1, h2);
     			append_dev(div3, t4);
     			append_dev(div3, div2);
     			append_dev(div2, p);
     		},
-    		p: noop,
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*userName*/ 1) set_data_dev(t1, /*userName*/ ctx[0]);
+    		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
@@ -481,22 +485,37 @@ var app = (function () {
     	return block;
     }
 
-    function instance$1($$self, $$props) {
+    function instance$1($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('ContactCard', slots, []);
-    	const writable_props = [];
+    	let { userName } = $$props;
+    	const writable_props = ['userName'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<ContactCard> was created with unknown prop '${key}'`);
     	});
 
-    	return [];
+    	$$self.$$set = $$props => {
+    		if ('userName' in $$props) $$invalidate(0, userName = $$props.userName);
+    	};
+
+    	$$self.$capture_state = () => ({ userName });
+
+    	$$self.$inject_state = $$props => {
+    		if ('userName' in $$props) $$invalidate(0, userName = $$props.userName);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [userName];
     }
 
     class ContactCard extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$1, create_fragment$1, safe_not_equal, {});
+    		init(this, options, instance$1, create_fragment$1, safe_not_equal, { userName: 0 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -504,6 +523,21 @@ var app = (function () {
     			options,
     			id: create_fragment$1.name
     		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*userName*/ ctx[0] === undefined && !('userName' in props)) {
+    			console.warn("<ContactCard> was created without expected prop 'userName'");
+    		}
+    	}
+
+    	get userName() {
+    		throw new Error("<ContactCard>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set userName(value) {
+    		throw new Error("<ContactCard>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -530,7 +564,11 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	contactcard = new ContactCard({ $$inline: true });
+
+    	contactcard = new ContactCard({
+    			props: { userName: /*name*/ ctx[0] },
+    			$$inline: true
+    		});
 
     	const block = {
     		c: function create() {
@@ -594,6 +632,10 @@ var app = (function () {
     			if (dirty & /*name*/ 1 && input.value !== /*name*/ ctx[0]) {
     				set_input_value(input, /*name*/ ctx[0]);
     			}
+
+    			const contactcard_changes = {};
+    			if (dirty & /*name*/ 1) contactcard_changes.userName = /*name*/ ctx[0];
+    			contactcard.$set(contactcard_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
