@@ -39,6 +39,7 @@
       event.target.selectionEnd = selectionEnd;
     });
   }
+  console.log("hi!");
 </script>
 
 <button
