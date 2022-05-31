@@ -4,6 +4,8 @@
 
   let products = [{ id: "p1", title: "A book", price: 99.99 }];
 
+  let showModal = false;
+
   function addToCart(event) {
     console.log(event);
   }
@@ -12,6 +14,12 @@
     console.log(event.detail);
   }
 </script>
+
+<button
+  on:click={() => {
+    showModal = true;
+  }}>Show Modal</button
+>
 
 {#each products as product}
   <Product
@@ -22,8 +30,13 @@
   />
 {/each}
 
-<Modal>
-  <h1 slot="header">Hello</h1>
-  <p>This works!</p>
-  <button slot="footer"> Confirm</button>
-</Modal>
+{#if showModal}
+  <Modal
+    on:cancel={() => (showModal = false)}
+    on:close={() => (showModal = false)}
+  >
+    <h1 slot="header">Hello</h1>
+    <p>This works!</p>
+    <button slot="footer" on:click={() => (showModal = false)}> Confirm</button>
+  </Modal>
+{/if}

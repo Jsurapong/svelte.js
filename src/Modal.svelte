@@ -1,13 +1,26 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
+
+  const onClose = () => {
+    dispatch("close");
+  };
+
+  const onCancel = () => {
+    dispatch("cancel");
+  };
 </script>
 
-<div class="backdrop" />
+<div class="backdrop" on:click={onCancel} />
 <div class="modal">
   <header><slot name="header" /></header>
   <div class="content">
     <slot />
   </div>
-  <footer><slot name="footer"><button>Close</button></slot></footer>
+  <footer>
+    <slot name="footer"><button on:click={onClose}>Close</button></slot>
+  </footer>
 </div>
 
 <style>
