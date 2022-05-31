@@ -5,6 +5,7 @@
   let products = [{ id: "p1", title: "A book", price: 99.99 }];
 
   let showModal = false;
+  let closeable = false;
 
   function addToCart(event) {
     console.log(event);
@@ -34,9 +35,16 @@
   <Modal
     on:cancel={() => (showModal = false)}
     on:close={() => (showModal = false)}
+    let:disAgree={closeable}
   >
     <h1 slot="header">Hello</h1>
     <p>This works!</p>
-    <button slot="footer" on:click={() => (showModal = false)}> Confirm</button>
+    <button
+      slot="footer"
+      on:click={() => (showModal = false)}
+      disabled={!closeable}
+    >
+      Confirm</button
+    >
   </Modal>
 {/if}

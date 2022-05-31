@@ -3,6 +3,8 @@
 
   const dispatch = createEventDispatcher();
 
+  let agreed = false;
+
   const onClose = () => {
     dispatch("close");
   };
@@ -18,8 +20,14 @@
   <div class="content">
     <slot />
   </div>
+  <div>
+    <p>Before you close, you need to agree to our terms!</p>
+    <button on:click={() => (agreed = true)}>Agree</button>
+  </div>
   <footer>
-    <slot name="footer"><button on:click={onClose}>Close</button></slot>
+    <slot name="footer" disAgree={agreed}
+      ><button on:click={onClose} disabled={!agreed}>Close</button></slot
+    >
   </footer>
 </div>
 
