@@ -42,6 +42,8 @@
       modal.scrollTo(0, modal.scrollHeight);
     }
   });
+
+  console.log("d");
 </script>
 
 <div class="backdrop" on:click={onCancel} />
